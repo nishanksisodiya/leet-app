@@ -1,0 +1,136 @@
+<template>
+  <v-container class="pa-0" fluid>
+    <div :style="transit" ref="bg"/>
+    <div class="content" ref="content">
+      <v-row class="top-row" justify="center">
+        <v-col cols="4" lg="3">
+          <svg class="d-block" viewBox="0 0 304.21 157.99">
+            <g fill="none" :stroke="colors.teal.accent3" stroke-width="2" class="line pa-2">
+              <path class="cls-1"
+                    d="M88.44,156.36H3.84A2.84,2.84,0,0,1,1,153.52V4.39H22.05V136.87a1.82,1.82,0,0,0,1.82,1.82H79.32a9.12,9.12,0,0,1,9.12,9.12Z"/>
+              <path class="cls-1"
+                    d="M135.16,98.2c0,.46,0,.92-.08,1.37A3.11,3.11,0,0,1,132,102.5H55.14a2.22,2.22,0,0,0-2.21,2.31q.62,16.23,10,25.19,10,9.6,28.84,9.6,5.11,0,10.23-.41t9.89-1.11q4.77-.69,9.13-1.57c2.9-.58,5.6-1.22,8.08-1.91v16.62A141.72,141.72,0,0,1,110.38,155a155.5,155.5,0,0,1-21.57,1.46q-15,0-25.81-4.07a44.19,44.19,0,0,1-17.73-11.81,48.45,48.45,0,0,1-10.23-19,89.67,89.67,0,0,1-3.32-25.41,75.26,75.26,0,0,1,3.55-23.31,58.27,58.27,0,0,1,10.35-19.3A49,49,0,0,1,84.75,35.52a56.92,56.92,0,0,1,21.62,3.84,43.53,43.53,0,0,1,15.88,10.87A46.46,46.46,0,0,1,132,67.33a61.36,61.36,0,0,1,2,7.58M111.19,87.08a3.13,3.13,0,0,0,3.14-3.15,42.28,42.28,0,0,0-1.56-11.25A29.9,29.9,0,0,0,107,61.57,26.88,26.88,0,0,0,97.3,54.3a32.63,32.63,0,0,0-13.49-2.61,28.11,28.11,0,0,0-12.09,2.56,27.57,27.57,0,0,0-9.42,7.2,37.57,37.57,0,0,0-6.39,11.17,48.94,48.94,0,0,0-2.74,11.52,2.63,2.63,0,0,0,2.62,2.94Z"/>
+              <path class="cls-1"
+                    d="M203.56,55.61c1.22,1.35,2.42,2.76,3.6,4.25q2.68,3.36,4.41,5.7c.51.7,1,1.39,1.48,2.06a3.11,3.11,0,0,1-.6,4.23l-60,47.94a2.21,2.21,0,0,0-.29,3.19q10.59,12.28,23.49,13.47,13.8,1.26,28.53-10.5,4-3.18,7.74-6.7t7-7q3.3-3.51,6.16-6.92c1.91-2.27,3.61-4.45,5.12-6.54l10.37,13a139.41,139.41,0,0,1-12.23,14.6,154.83,154.83,0,0,1-16,14.59q-11.72,9.36-22.71,12.93a44.16,44.16,0,0,1-21.22,1.84,48.53,48.53,0,0,1-19.82-8.43,89.91,89.91,0,0,1-18.45-17.79,75.5,75.5,0,0,1-11.77-20.43,58.49,58.49,0,0,1-4-21.54A49,49,0,0,1,133.76,49a57.11,57.11,0,0,1,19.29-10.49,43.44,43.44,0,0,1,19.19-1.41,46.53,46.53,0,0,1,18.3,7.27A62.05,62.05,0,0,1,197.86,50M186.59,72.77a3.14,3.14,0,0,0,.49-4.42,42.21,42.21,0,0,0-8.25-7.83,30,30,0,0,0-11.42-5.08,26.77,26.77,0,0,0-12.12.38,32.41,32.41,0,0,0-12.18,6.37,28,28,0,0,0-7.85,9.54,27.56,27.56,0,0,0-2.87,11.51,37.22,37.22,0,0,0,2,12.71,49.2,49.2,0,0,0,5,10.72,2.63,2.63,0,0,0,3.88.66Z"/>
+              <path class="cls-1"
+                    d="M230.54,99.2V55.59H197.86v-17h32.68V6.52l20.23-5.23V38.62h52.44v17H250.77V114.9q0,12.55,6.69,18.78t19.71,6.22a94.09,94.09,0,0,0,12.2-.87,118.11,118.11,0,0,0,13.84-2.74v17.44a97,97,0,0,1-14.18,2.5,143.42,143.42,0,0,1-14.89.76q-22,0-32.79-9.94-8.86-8.16-10.46-23.45"/>
+            </g>
+          </svg>
+        </v-col>
+      </v-row>
+      <v-row class="top-row" justify="center" dense>
+        <v-col cols="4" lg="3">
+          <h3
+            class="title"
+            :style="'color: ' + colors.teal.accent3"
+          >
+            Lecture Engagement Evaluation Tool
+          </h3>
+        </v-col>
+      </v-row>
+      <v-row justify="center" dense>
+        <v-card
+          height="75"
+          width="75"
+          class="next-btn d-flex justify-center align-center"
+          style="border-radius: 50%;"
+          :color="colors.teal.accent4"
+          @click="grow"
+        >
+          <v-icon class="arrow" size="60" color="black">mdi-chevron-right</v-icon>
+        </v-card>
+      </v-row>
+    </div>
+  </v-container>
+</template>
+
+<script>
+import anime from 'animejs'
+import colors from 'vuetify/lib/util/colors'
+export default {
+  name: 'landing',
+
+  data: () => ({
+    colors: colors,
+    transit: {
+      background: '#00bfa5',
+      'max-height': '100vh',
+      'min-width': '100vw',
+      opacity: '0',
+      height: 0,
+      transition: 'clip-path 0.6s cubic-bezier(0.5, 0, 0.75, 0)',
+      'clip-path': 'circle(0% at 50% 65%)'
+    }
+  }),
+  methods: {
+    grow () {
+      this.$refs.content.style.display = 'none'
+      this.transit.height = '100vh'
+      this.transit.opacity = '1'
+      // this.transit['clip-path'] = 'circle(100% at 50% 65%)'
+      this.transitionToPromise(this.$refs.bg, 'clip-path', 'circle(100% at 50% 65%)')
+        .then(() => {
+          this.$router.push('/login')
+        })
+    },
+    transitionToPromise (el, property, value) {
+      // eslint-disable-next-line no-new
+      return new Promise(resolve => {
+        this.transit[property] = value
+        const transitionEnded = e => {
+          if (e.propertyName !== property) return
+          el.removeEventListener('transitionend', transitionEnded)
+          resolve()
+        }
+        el.addEventListener('transitionend', transitionEnded)
+      })
+    }
+  },
+  mounted () {
+    anime({
+      targets: '.line path',
+      strokeDashoffset: [anime.setDashoffset, 0],
+      easing: 'easeInExpo',
+      duration: 1500,
+      delay: function (el, i) { return i * 250 },
+      direction: 'alternate',
+      loop: false
+    }).finished.then(() => {
+      anime({
+        targets: ['.line path'],
+        fill: colors.teal.accent3,
+        duration: 1000,
+        easing: 'easeInSine'
+      }).finished.then(() => {
+        anime({
+          targets: ['.title', '.next-btn'],
+          marginTop: 0,
+          opacity: 1,
+          duration: 250,
+          easing: 'easeInSine'
+        })
+      })
+    })
+  }
+}
+</script>
+
+<style scoped>
+  .title {
+    text-align: justify;
+    margin-top: -25px;
+    opacity: 0;
+  }
+  .title:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    font-size: 1em;
+  }
+  .next-btn {
+    margin-top: -35px;
+    opacity: 0;
+    position: relative;
+    z-index: 99;
+  }
+</style>
