@@ -1,6 +1,6 @@
 <template>
   <v-app dark >
-    <v-app-bar class="title-bar" short fixed app dense color="grey darken-4">
+    <v-app-bar height="30px" class="title-bar" short fixed app dense color="grey darken-4">
       <v-spacer/>
       <v-icon
         class="title-btn mx-2"

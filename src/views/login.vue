@@ -8,16 +8,14 @@
             <v-text-field label="Username"/>
             <v-text-field label="Password" type="password"/>
           </v-card-text>
+          <v-card-subtitle>
+            Don't have an account? Register <a>here</a>
+          </v-card-subtitle>
           <v-card-actions>
             <v-row class="justify-center">
               <v-col cols="6">
                 <v-btn block large :color="colors.purple.accent4">Log in.</v-btn>
               </v-col>
-            </v-row>
-            <v-row class="justify-center">
-              <v-card-subtitle>
-                Dont have an account? Register <a>here</a>
-              </v-card-subtitle>
             </v-row>
           </v-card-actions>
         </v-card>
