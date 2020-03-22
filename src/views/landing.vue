@@ -34,10 +34,10 @@
           width="75"
           class="next-btn d-flex justify-center align-center"
           style="border-radius: 50%;"
-          :color="colors.teal.accent4"
+          :color="colors.purple.darken3"
           @click="grow"
         >
-          <v-icon class="arrow" size="60" color="black">mdi-chevron-right</v-icon>
+          <v-icon class="arrow" size="60">mdi-chevron-right</v-icon>
         </v-card>
       </v-row>
     </div>
@@ -53,7 +53,7 @@ export default {
   data: () => ({
     colors: colors,
     transit: {
-      background: '#00bfa5',
+      background: '#4a148c',
       'max-height': '100vh',
       'min-width': '100vw',
       opacity: '0',

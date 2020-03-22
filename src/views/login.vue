@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0 fill-height align-center" :style="'background-color: ' + colors.teal.accent4">
+  <v-container fluid class="pa-0 fill-height align-center" :style="'background-color: ' + colors.purple.darken4">
     <v-row justify="center" class="ma-0">
       <v-col cols="12" sm="6" md="6" xl="2" lg="3">
         <v-card dark elevation="24">
@@ -14,7 +14,7 @@
           <v-card-actions>
             <v-row class="justify-center">
               <v-col cols="6">
-                <v-btn block large :color="colors.purple.accent4">Log in.</v-btn>
+                <v-btn block large :color="colors.teal.accent4">Log in.</v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
