@@ -135,7 +135,7 @@ export default {
     submitOtp () {
       axios({
         method: 'post',
-        url: this.$baseUrl + 'verify-email/' + this.registerInfo + '/' + this.otp
+        url: this.$baseUrl + 'verify-email/' + this.registerInfo.usr_eml + '/' + this.otp
       }).then(() => {
         this.$router.go()
       })
