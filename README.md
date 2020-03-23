@@ -6,14 +6,14 @@ Lecture Engagement Evaluation Tool
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and Creates Installable exe
 ```
-npm run electron:serve
+npm run build
 ```
 
 ### Compiles and minifies for production and creates executable
 ```
-npm run electron:serve
+npm run serve
 ```
 
 ### Lints and fixes files
