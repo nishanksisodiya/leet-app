@@ -1,4 +1,5 @@
 # leet
+Lecture Engagement Evaluation Tool
 
 ## Project setup
 ```
