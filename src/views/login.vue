@@ -26,7 +26,7 @@
             <v-card-actions>
               <v-row class="justify-center">
                 <v-col cols="6">
-                  <v-btn block large class="black--text" @click="register" color="secondary">Register.</v-btn>
+                  <v-btn block large class="black--text" @click="register" color="secondary">Register</v-btn>
                 </v-col>
               </v-row>
             </v-card-actions>
@@ -43,7 +43,7 @@
             <v-card-actions>
               <v-row class="justify-center">
                 <v-col cols="6">
-                  <v-btn @click="login" block class="black--text" large color="secondary">Log in.</v-btn>
+                  <v-btn @click="login" block class="black--text" large color="secondary">Log in</v-btn>
                 </v-col>
               </v-row>
             </v-card-actions>
@@ -64,7 +64,7 @@
         <v-card-actions>
           <v-row justify="center">
             <v-col cols="6">
-              <v-btn block color="primary" @click="submitOtp">Submit.</v-btn>
+              <v-btn block color="primary" @click="submitOtp">Submit</v-btn>
             </v-col>
           </v-row>
         </v-card-actions>
@@ -112,7 +112,12 @@ export default {
         data: data
       }).then((response) => {
         console.log(response.data)
-        alert('success')
+        if (response.data === 'True') {
+          this.$session.start()
+          this.$cookies.set('user-data', { email: this.loginInfo.usr_name, fname: 'Nishank', lname: 'Sisodiya' }, '7d', '', '', true)
+          this.$session.set('user-data', { email: 'nishanksisodiya@gmail.com', fname: 'Nishank', lname: 'Sisodiya' })
+          this.$router.push('/home')
+        }
       })
     },
     register () {

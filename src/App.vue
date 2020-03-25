@@ -1,6 +1,9 @@
 <template>
   <v-app dark >
     <v-app-bar height="30px" class="title-bar" short fixed app dense color="grey darken-4">
+      <v-avatar size="30px">
+        <logo stroke="#37474f" fill="#37474f"/>
+      </v-avatar>
       <v-spacer/>
       <v-icon
         class="title-btn mx-2"
@@ -25,16 +28,22 @@
         mdi-close-thick
       </v-icon>
     </v-app-bar>
-    <v-container fluid class="pa-0 fill-height">
-      <router-view/>
-    </v-container>
+    <v-content>
+      <v-container fluid class="pa-0 fill-height">
+        <router-view/>
+      </v-container>
+    </v-content>
   </v-app>
 </template>
 
 <script>
+import logo from '@/components/logo'
 const { remote } = require('electron')
 export default {
   name: 'App',
+  components: {
+    logo
+  },
   methods: {
     min () {
       remote.getCurrentWindow().minimize()
@@ -49,6 +58,16 @@ export default {
     },
     close () {
       remote.app.quit()
+    }
+  },
+  created () {
+    console.log('%cSTOP!', 'font-size: 50px; font-weight: bold; color: red')
+    console.log('%cIf someone asked you to paste something here you are probably being scammed and your data might be stolen', 'font-size: 15px; font-weight: medium; color: blue')
+    const sess = this.$cookies.get('user-data')
+    if (sess) {
+      this.$session.start()
+      this.$session.set('user-data', { email: 'nishanksisodiya@gmail.com', name: 'Nishank Sisodiya' })
+      this.$router.push(' /home')
     }
   }
 }

@@ -11,7 +11,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
-// Scheme must be registered before the app is ready
+// Scheme must be registered before the home is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
 function createWindow () {
@@ -19,6 +19,8 @@ function createWindow () {
   win = new BrowserWindow({
     width: 1366,
     height: 786,
+    minHeight: 720,
+    minWidth: 1270,
     webPreferences: {
       nodeIntegration: true
     },
@@ -31,7 +33,7 @@ function createWindow () {
   } else {
     createProtocol('app')
     // Load the index.html when not in development
-    win.loadURL('app://./index.html')
+    win.loadURL('home://./index.html')
   }
 
   win.on('closed', () => {
@@ -49,7 +51,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
+  // On macOS it's common to re-create a window in the home when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
