@@ -1,54 +1,70 @@
 <template>
-  <v-container fluid class="pa-0 fill-height align-center" style="background: linear-gradient(135deg, rgba(74,20,140,1) 0%, rgba(170,0,255,1) 100%);">
-    <v-row justify="center" class="ma-0">
-      <v-col cols="12" sm="6" md="6" xl="3" lg="4">
-        <transition name="grow" mode="out-in">
-          <v-card key="1" class="form-card" dark elevation="24" v-if="registerTab">
-            <v-card-title class="secondary--text">Register.</v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-col cols="6">
-                  <v-text-field label="First Name" v-model="registerInfo.usr_fname"/>
-                </v-col>
-                <v-col cols="6">
-                  <v-text-field label="Last Name" v-model="registerInfo.usr_lname"/>
-                </v-col>
-              </v-row>
-              <v-text-field label="Email" v-model="registerInfo.usr_eml"/>
-              <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
-              <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
-              <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
-              <v-text-field label="Organization" v-model="registerInfo.usr_org"/>
-            </v-card-text>
-            <v-card-subtitle>
-              Already have an account? <a @click="registerHere">Log in.</a>
-            </v-card-subtitle>
-            <v-card-actions>
-              <v-row class="justify-center">
-                <v-col cols="6">
-                  <v-btn block large class="black--text" @click="register" color="secondary">Register</v-btn>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-          </v-card>
-          <v-card key="2" class="form-card" dark elevation="24" v-else>
-            <v-card-title class="secondary--text">LOGIN.</v-card-title>
-            <v-card-text>
-              <v-text-field label="Email" v-model="loginInfo.usr_name"/>
-              <v-text-field label="Password" v-model="loginInfo.usr_pwd" type="password"/>
-            </v-card-text>
-            <v-card-subtitle>
-              Don't have an account? <a @click="registerHere">Register</a>
-            </v-card-subtitle>
-            <v-card-actions>
-              <v-row class="justify-center">
-                <v-col cols="6">
-                  <v-btn @click="login" block class="black--text" large color="secondary">Log in</v-btn>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-          </v-card>
-        </transition>
+  <v-container fluid class="pa-0 fill-height align-center bg">
+    <v-row justify="center" class="ma-0" align="center">
+      <v-col cols="12" sm="12" md="8" xl="8" lg="8">
+        <v-card elevation="24" style="border-radius: 10px">
+          <v-overlay light absolute :class="{'overlay': true, 'overlay-active': ol}" opacity="1" color="white">
+            <transition name="slide" mode="out-in">
+              <div :key="'1'" v-if="!ol" class="d-flex flex-column">
+                <v-card-title class="black--text">
+                  Don't Have an account?
+                </v-card-title>
+                <v-btn color="success" text rounded @click="moveOverlay()">Sign up</v-btn>
+              </div>
+              <div :key="'2'" v-else class="d-flex flex-column">
+                <v-card-title class="black--text">
+                  Already Have an account?
+                </v-card-title>
+                <v-btn color="success" text rounded @click="moveOverlay()">Log in</v-btn>
+              </div>
+            </transition>
+          </v-overlay>
+          <v-row align="center">
+            <v-col cols="6">
+              <v-card dark elevation="0">
+                <v-card-title class="secondary--text">Register.</v-card-title>
+                <v-card-text>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-text-field label="First Name" v-model="registerInfo.usr_fname"/>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-text-field label="Last Name" v-model="registerInfo.usr_lname"/>
+                    </v-col>
+                  </v-row>
+                  <v-text-field label="Email" v-model="registerInfo.usr_eml"/>
+                  <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
+                  <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
+                  <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
+                  <v-text-field label="Organization" v-model="registerInfo.usr_org"/>
+                </v-card-text>
+                <v-card-actions>
+                  <v-row class="justify-center">
+                    <v-col cols="6">
+                      <v-btn block large class="black--text" @click="register" color="secondary">Register</v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+            <v-col cols="6">
+              <v-card dark elevation="0">
+                <v-card-title class="secondary--text">LOGIN.</v-card-title>
+                <v-card-text>
+                  <v-text-field label="Email" v-model="loginInfo.usr_name"/>
+                  <v-text-field label="Password" v-model="loginInfo.usr_pwd" type="password"/>
+                </v-card-text>
+                <v-card-actions>
+                  <v-row class="justify-center">
+                    <v-col cols="6">
+                      <v-btn @click="login" block class="black--text" large color="secondary">Log in</v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
     </v-row>
 
@@ -76,11 +92,11 @@
 <script>
 import colors from 'vuetify/lib/util/colors'
 import axios from 'axios'
+import anime from 'animejs'
 export default {
   name: 'login',
   data: () => ({
     colors: colors,
-    registerTab: false,
     otpModal: false,
     loginInfo: {
       usr_name: null,
@@ -95,12 +111,19 @@ export default {
       usr_phone: null
     },
     cnfPwd: null,
-    otp: null
+    otp: null,
+    ol: false
   }),
+  mounted () {
+    anime({
+      targets: '.bg',
+      clipPath: 'circle(100% at  50% 65%)',
+      easing: 'easeOutQuad',
+      duration: 1000,
+      loop: false
+    })
+  },
   methods: {
-    registerHere () {
-      this.registerTab = !this.registerTab
-    },
     login () {
       const data = new FormData()
       for (const key in this.loginInfo) {
@@ -144,24 +167,34 @@ export default {
       }).then(() => {
         this.$router.go()
       })
+    },
+    moveOverlay () {
+      this.ol = !this.ol
     }
   }
 }
 </script>
 
 <style scoped>
-  .grow-enter-active {
-    animation: grow-card 285ms cubic-bezier(0.5, 0, 0.75, 0);
+  .bg {
+    background: linear-gradient(135deg, rgba(74,20,140,1) 0%, rgba(170,0,255,1) 100%);
+    clip-path: circle(0% at 50% 65%);
+    will-change: clip-path;
   }
-  .grow-leave-active {
-    animation: grow-card 285ms cubic-bezier(0.5, 0, 0.75, 0) reverse;
+  .overlay {
+    overflow: hidden;
+    will-change: transform;
+    transform: translateX(0);
+    width: 50%;
   }
-  @keyframes grow-card {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
+  .overlay-active {
+    transform: translateX(100%);
+  }
+  .slide-enter-active, .slide-leave-active {
+    transition: all 100ms;
+  }
+  .slide-enter, .slide-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="px-0 fill-height align-center">
+  <v-container fluid class="pa-0 fill-height align-center">
     <router-view/>
   </v-container>
 </template>

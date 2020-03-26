@@ -1,6 +1,6 @@
 <template>
   <v-app dark >
-    <v-app-bar height="30px" class="title-bar" short fixed app dense color="grey darken-4">
+    <v-app-bar height="30px" clipped-left class="title-bar" short fixed app dense color="grey darken-4">
       <v-avatar size="30px">
         <logo stroke="#37474f" fill="#37474f"/>
       </v-avatar>

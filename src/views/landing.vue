@@ -1,6 +1,5 @@
 <template>
   <v-container class="pa-0" fluid>
-    <div :style="transit" ref="bg"/>
     <div class="content" ref="content">
       <v-row class="top-row" justify="center">
         <v-col cols="4" lg="3">
@@ -35,7 +34,7 @@
           class="next-btn d-flex justify-center align-center"
           style="border-radius: 50%;"
           :color="colors.purple.darken3"
-          @click="grow"
+          @click="$router.push('/login')"
         >
           <v-icon class="arrow" size="60">mdi-chevron-right</v-icon>
         </v-card>
@@ -51,41 +50,8 @@ export default {
   name: 'landing',
 
   data: () => ({
-    colors: colors,
-    transit: {
-      background: '#4a148c',
-      'max-height': '100vh',
-      'min-width': '100vw',
-      opacity: '0',
-      height: 0,
-      transition: 'clip-path 0.6s cubic-bezier(0.5, 0, 0.75, 0)',
-      'clip-path': 'circle(0% at 50% 65%)'
-    }
+    colors: colors
   }),
-  methods: {
-    grow () {
-      this.$refs.content.style.display = 'none'
-      this.transit.height = '100vh'
-      this.transit.opacity = '1'
-      // this.transit['clip-path'] = 'circle(100% at 50% 65%)'
-      this.transitionToPromise(this.$refs.bg, 'clip-path', 'circle(100% at 50% 65%)')
-        .then(() => {
-          this.$router.push('/login')
-        })
-    },
-    transitionToPromise (el, property, value) {
-      // eslint-disable-next-line no-new
-      return new Promise(resolve => {
-        this.transit[property] = value
-        const transitionEnded = e => {
-          if (e.propertyName !== property) return
-          el.removeEventListener('transitionend', transitionEnded)
-          resolve()
-        }
-        el.addEventListener('transitionend', transitionEnded)
-      })
-    }
-  },
   mounted () {
     anime({
       targets: '.line path',

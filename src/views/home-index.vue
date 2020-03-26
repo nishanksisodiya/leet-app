@@ -5,8 +5,8 @@
       <v-avatar size="25px" color="indigo">
         <v-icon large dark>mdi-account-circle</v-icon>
       </v-avatar>
-      <v-card-title>{{ this.$session.get('user-data').fname }}</v-card-title>
-      <v-icon>mdi-cog</v-icon>
+      <span class="px-2">{{ this.$session.get('user-data').fname }}</span>
+      <v-icon @click="$router.push('/home/settings')">mdi-cog</v-icon>
     </v-app-bar>
   </v-container>
 </template>
