@@ -1,7 +1,23 @@
 # leet
 Lecture Engagement Evaluation Tool
+<br><br>
+## Steps to setup repo
+###requirements
+`npm`
+###setup
+```
+git clone <repo url>
+cd <repo folder>
+npm install
 
-## Project setup
+# for serving (you'll mostly need this)
+npm run serve
+
+# for building (only needed when building for production)
+npm run build
+```
+<br><br>
+### Basic NPM commands
 ```
 npm install
 ```
