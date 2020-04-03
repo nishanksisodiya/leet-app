@@ -15,7 +15,7 @@
                 <v-card-title class="black--text">
                   Already Have an account?
                 </v-card-title>
-                <v-btn color="success" text rounded @click="moveOverlay()">Log in</v-btn>
+                <v-btn color="success" text rounded :disabled="emlDisable" @click="moveOverlay()">Log in</v-btn>
               </div>
             </transition>
           </v-overlay>
@@ -32,7 +32,7 @@
                       <v-text-field label="Last Name" v-model="registerInfo.usr_lname"/>
                     </v-col>
                   </v-row>
-                  <v-text-field label="Email" v-model="registerInfo.usr_eml"/>
+                  <v-text-field label="Email" v-model="registerInfo.usr_eml" :disabled="emlDisable"/>
                   <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
                   <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
                   <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
@@ -85,6 +85,12 @@
           </v-row>
         </v-card-actions>
       </v-card>
+      <v-snackbar :timeout="5000" v-model="wrongOtp">
+        Wrong OTP try again.
+      </v-snackbar>
+      <v-snackbar :timeout="5000" v-model="loginErr">
+        Oops. there seem to be some problem in login please check credentials and try again
+      </v-snackbar>
     </v-dialog>
   </v-container>
 </template>
@@ -98,6 +104,8 @@ export default {
   data: () => ({
     colors: colors,
     otpModal: false,
+    wrongOtp: false,
+    loginErr: false,
     loginInfo: {
       usr_name: null,
       usr_pwd: null
@@ -110,10 +118,18 @@ export default {
       usr_org: null,
       usr_phone: null
     },
+    emlDisable: false,
     cnfPwd: null,
     otp: null,
     ol: false
   }),
+  created () {
+    if (this.$route.params.email) {
+      this.registerInfo.usr_eml = this.$route.params.email
+      this.emlDisable = true
+      this.ol = true
+    }
+  },
   mounted () {
     anime({
       targets: '.bg',
@@ -125,33 +141,43 @@ export default {
   },
   methods: {
     login () {
-      const data = new FormData()
-      for (const key in this.loginInfo) {
-        data.append(key, this.loginInfo[key])
-      }
       axios({
         method: 'post',
         url: this.$baseUrl + 'login',
-        data: data
+        data: this.loginInfo
       }).then((response) => {
-        console.log(response.data)
-        if (response.data === 'True') {
+        if (response.status === 200) {
           this.$session.start()
-          this.$cookies.set('user-data', { email: this.loginInfo.usr_name, fname: 'Nishank', lname: 'Sisodiya' }, '7d', '', '', true)
-          this.$session.set('user-data', { email: 'nishanksisodiya@gmail.com', fname: 'Nishank', lname: 'Sisodiya' })
-          this.$router.push('/home')
+          this.$cookies.set('refresh-token', response.data.refresh_token, '7d')
+          this.$session.set('auth-data', {
+            refreshToken: response.data.refresh_token,
+            accessToken: response.data.access_token
+          })
+          axios({
+            method: 'post',
+            url: this.$baseUrl + 'getUserInfo/name',
+            headers: {
+              authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
+            }
+          }).then((response) => {
+            this.$session.set('user-data', {
+              fname: response.data.usr_fname,
+              lname: response.data.usr_lname
+            })
+            this.$router.push('/home')
+          }).catch((e) => {
+            console.log(e)
+          })
+        } else {
+          this.loginErr = true
         }
       })
     },
     register () {
-      const data = new FormData()
-      for (const key in this.registerInfo) {
-        data.append(key, this.registerInfo[key])
-      }
       axios({
         method: 'post',
         url: this.$baseUrl + 'registerAdmin',
-        data: data
+        data: this.registerInfo
       })
         .then(() => {
           this.otpModal = true
@@ -164,8 +190,12 @@ export default {
       axios({
         method: 'post',
         url: this.$baseUrl + 'verify-email/' + this.registerInfo.usr_eml + '/' + this.otp
-      }).then(() => {
-        this.$router.go()
+      }).then((response) => {
+        if (response.data === 'True') {
+          this.$router.go()
+        } else {
+          this.wrongOtp = true
+        }
       })
     },
     moveOverlay () {

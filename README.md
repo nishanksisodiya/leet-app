@@ -27,6 +27,11 @@ npm install
 npm run build
 ```
 
+### Build vue app (in dist folder)
+```
+npm run build:dist
+```
+
 ### Compiles and minifies for production and creates executable
 ```
 npm run serve

@@ -1,5 +1,6 @@
+import { app } from "electron"
 <template>
-  <v-app dark >
+  <v-app>
     <v-app-bar height="30px" clipped-left class="title-bar" short fixed app dense color="grey darken-4">
       <v-avatar size="30px">
         <logo stroke="#37474f" fill="#37474f"/>
@@ -38,6 +39,7 @@
 
 <script>
 import logo from '@/components/logo'
+import axios from 'axios'
 const { remote } = require('electron')
 export default {
   name: 'App',
@@ -61,13 +63,42 @@ export default {
     }
   },
   created () {
+    if (remote.getGlobal('email')) {
+      this.$router.push('/login/' + remote.getGlobal('email'))
+    }
     console.log('%cSTOP!', 'font-size: 50px; font-weight: bold; color: red')
     console.log('%cIf someone asked you to paste something here you are probably being scammed and your data might be stolen', 'font-size: 15px; font-weight: medium; color: blue')
-    const sess = this.$cookies.get('user-data')
-    if (sess) {
-      this.$session.start()
-      this.$session.set('user-data', { email: 'nishanksisodiya@gmail.com', name: 'Nishank Sisodiya' })
-      this.$router.push(' /home')
+    const auth = this.$cookies.get('refresh-token')
+    if (auth) {
+      axios({
+        url: this.$baseUrl + 'refresh',
+        method: 'post',
+        headers: {
+          authorization: 'Bearer ' + auth
+        }
+      }).then((response) => {
+        console.log(response)
+        this.$session.start()
+        this.$session.set('auth-data', {
+          accessToken: response.data.access_token,
+          refreshToken: auth
+        })
+        axios({
+          method: 'post',
+          url: this.$baseUrl + 'getUserInfo/name',
+          headers: {
+            authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
+          }
+        }).then((response) => {
+          this.$session.set('user-data', {
+            fname: response.data.usr_fname,
+            lname: response.data.usr_lname
+          })
+          this.$router.push('/home')
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
     }
   }
 }

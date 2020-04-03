@@ -12,7 +12,6 @@ Vue.prototype.$baseUrl = 'https://leet.azurewebsites.net/'
 
 Vue.use(VueCookies)
 Vue.use(session)
-
 // Disable for production
 document.onkeyup = function (e) {
   if (e.altKey && e.key === 'ArrowLeft') {

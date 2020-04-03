@@ -10,7 +10,7 @@ const routes = [
     component: () => import('../views/landing.vue')
   },
   {
-    path: '/login',
+    path: '/login/:email',
     name: 'login',
     component: () => import('../views/login.vue')
   },
@@ -25,14 +25,27 @@ const routes = [
       },
       {
         path: 'settings',
-        name: 'settings',
-        component: () => import('../views/home-settings.vue')
+        redirect: 'settings/index',
+        component: () => import('../views/settings.vue'),
+        children: [
+          {
+            path: 'index',
+            name: 'settings-index',
+            component: () => import('../views/settings-index.vue')
+          },
+          {
+            path: 'add-staff',
+            name: 'settings-add-staff',
+            component: () => import('../views/settings-addStaff.vue')
+          }
+        ]
       }
     ]
   }
 ]
 
 const router = new VueRouter({
+  mode: process.env.IS_ELECTRON ? 'hash' : 'history',
   routes
 })
 

@@ -4,7 +4,7 @@
       <v-row class="top-row" justify="center">
         <v-col cols="4" lg="3">
           <svg class="d-block" viewBox="0 0 304.21 157.99">
-            <g fill="none" :stroke="colors.teal.accent3" stroke-width="2" class="line pa-2">
+            <g fill="none" :stroke="colors.teal.accent3" stroke-width="2" class="g pa-2">
               <path class="cls-1"
                     d="M88.44,156.36H3.84A2.84,2.84,0,0,1,1,153.52V4.39H22.05V136.87a1.82,1.82,0,0,0,1.82,1.82H79.32a9.12,9.12,0,0,1,9.12,9.12Z"/>
               <path class="cls-1"
@@ -54,7 +54,7 @@ export default {
   }),
   mounted () {
     anime({
-      targets: '.line path',
+      targets: '.g .cls-1',
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'easeInExpo',
       duration: 1500,
@@ -63,7 +63,7 @@ export default {
       loop: false
     }).finished.then(() => {
       anime({
-        targets: ['.line path'],
+        targets: ['.g .cls-1'],
         fill: colors.teal.accent3,
         duration: 1000,
         easing: 'easeInSine'

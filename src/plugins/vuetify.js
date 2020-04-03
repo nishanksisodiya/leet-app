@@ -13,6 +13,12 @@ export default new Vuetify({
         secondary: colors.teal.accent3,
         accent: colors.amber.darken1,
         error: colors.red.darken4
+      },
+      light: {
+        primary: colors.purple.accent4,
+        secondary: colors.teal.accent3,
+        accent: colors.amber.darken1,
+        error: colors.red.darken4
       }
     }
   }

@@ -14,15 +14,20 @@ let win
 // Scheme must be registered before the home is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
+if (process.argv.length > 1) {
+  global.email = process.argv[1].replace('leet://', '').split(/[/?#]/)[0]
+}
+// Force Single Instance Application
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
     width: 1366,
     height: 786,
     minHeight: 720,
-    minWidth: 1270,
+    minWidth: 1280,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      zoomFactor: 0.8333333334
     },
     frame: false
   })
@@ -33,13 +38,16 @@ function createWindow () {
   } else {
     createProtocol('app')
     // Load the index.html when not in development
-    win.loadURL('home://./index.html')
+    win.loadURL('app://./index.html')
+    // win.loadURL('home://./index.html')
   }
 
   win.on('closed', () => {
     win = null
   })
 }
+
+app.setAsDefaultProtocolClient('leet')
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
