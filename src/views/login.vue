@@ -36,7 +36,7 @@
                   <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
                   <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
                   <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
-                  <v-text-field label="Organization" v-model="registerInfo.usr_org"/>
+                  <v-text-field label="Organization" v-model="registerInfo.usr_org" :disabled="emlDisable"/>
                 </v-card-text>
                 <v-card-actions>
                   <v-row class="justify-center">
@@ -124,8 +124,11 @@ export default {
     ol: false
   }),
   created () {
-    if (this.$route.params.email) {
-      this.registerInfo.usr_eml = this.$route.params.email
+    if (this.$route.params.data) {
+      let data = window.atob(this.$route.params.data)
+      data = JSON.parse(data)
+      this.registerInfo.usr_eml = data.eml
+      this.registerInfo.usr_org = data.org
       this.emlDisable = true
       this.ol = true
     }

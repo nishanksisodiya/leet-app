@@ -10,7 +10,7 @@ const routes = [
     component: () => import('../views/landing.vue')
   },
   {
-    path: '/login/:email',
+    path: '/login/:data?',
     name: 'login',
     component: () => import('../views/login.vue')
   },
