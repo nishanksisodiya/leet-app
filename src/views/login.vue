@@ -32,11 +32,11 @@
                       <v-text-field label="Last Name" v-model="registerInfo.usr_lname"/>
                     </v-col>
                   </v-row>
-                  <v-text-field label="Email" v-model="registerInfo.usr_eml" :disabled="emlDisable"/>
+                  <v-text-field label="Email" v-model="registerInfo.usr_eml" :filled="emlDisable" :readonly="emlDisable"/>
                   <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
                   <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
                   <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
-                  <v-text-field label="Organization" v-model="registerInfo.usr_org" :disabled="emlDisable"/>
+                  <v-text-field label="Organization" v-model="registerInfo.usr_org" :filled="emlDisable" :readonly="emlDisable"/>
                 </v-card-text>
                 <v-card-actions>
                   <v-row class="justify-center">
