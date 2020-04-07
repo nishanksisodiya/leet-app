@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "build": "vue-cli-service electron:build",
+    "build:install": "vue-cli-service electron:build && cd dist_electron && \"leet Setup 0.1.0.exe\"",
     "build:dist": "vue-cli-service build",
     "serve": "vue-cli-service electron:serve",
     "lint": "vue-cli-service lint",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "lazy-push": "git add . && git commit -m \"Lazy commit\" && git push -u origin master"
   },
   "main": "background.js",
   "dependencies": {

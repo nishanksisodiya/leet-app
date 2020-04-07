@@ -41,7 +41,7 @@
                 <v-card-actions>
                   <v-row class="justify-center">
                     <v-col cols="6">
-                      <v-btn block large class="black--text" @click="register" color="secondary">Register</v-btn>
+                      <v-btn block large class="black--text" @click="register" @keyup.enter="register" color="secondary">Register</v-btn>
                     </v-col>
                   </v-row>
                 </v-card-actions>
@@ -57,7 +57,7 @@
                 <v-card-actions>
                   <v-row class="justify-center">
                     <v-col cols="6">
-                      <v-btn @click="login" block class="black--text" large color="secondary">Log in</v-btn>
+                      <v-btn @click="login" @keyup.enter="login" block class="black--text" large color="secondary">Log in</v-btn>
                     </v-col>
                   </v-row>
                 </v-card-actions>
@@ -80,7 +80,7 @@
         <v-card-actions>
           <v-row justify="center">
             <v-col cols="6">
-              <v-btn block color="primary" @click="submitOtp">Submit</v-btn>
+              <v-btn block color="primary" @keyup.enter="submitOtp" @click="submitOtp">Submit</v-btn>
             </v-col>
           </v-row>
         </v-card-actions>
