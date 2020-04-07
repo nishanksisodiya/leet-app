@@ -11,7 +11,6 @@
         <v-text-field label="Email" type="email"></v-text-field>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
