@@ -75,12 +75,22 @@ export default {
     console.log('%cSTOP!', 'font-size: 50px; font-weight: bold; color: red')
     console.log('%cIf someone asked you to paste something here you are probably being scammed and your data might be stolen', 'font-size: 15px; font-weight: medium; color: blue')
     const auth = this.$cookies.get('refresh-token')
-    axios.interceptors.request.use(function (config) {
+
+    axios.interceptors.request.use((config) => {
       this.loader = true
+      return config
+    }, (error) => {
+      return Promise.reject(error)
     })
-    axios.interceptors.response.use(function (response) {
+
+    axios.interceptors.response.use((response) => {
       this.loader = false
+      return response
+    }, (error) => {
+      this.loader = false
+      return Promise.reject(error)
     })
+
     if (auth) {
       axios({
         url: this.$baseUrl + 'refresh',
@@ -119,6 +129,7 @@ export default {
 <style scoped>
   .title-bar {
     -webkit-app-region: drag;
+    z-index: 169;
   }
   .title-btn {
     -webkit-app-region: no-drag;

@@ -6,7 +6,7 @@
         <v-icon large dark>mdi-account-circle</v-icon>
       </v-avatar>
       <span class="px-2">{{ this.$session.get('user-data').fname }}</span>
-      <v-icon @click="$router.push('/home/settings')">mdi-cog</v-icon>
+      <v-icon class="set-ico" @click="$router.push('/home/settings')">mdi-cog</v-icon>
     </v-app-bar>
   </v-container>
 </template>
@@ -18,5 +18,11 @@ export default {
 </script>
 
 <style scoped>
-
+  .set-ico {
+    rotation: 0deg;
+    transition: transform 1.5s cubic-bezier(0, 0.55, 0.45, 1);
+  }
+  .set-ico:hover {
+    transform: rotate(900deg);
+  }
 </style>

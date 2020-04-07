@@ -37,6 +37,11 @@ const routes = [
             path: 'add-staff',
             name: 'settings-add-staff',
             component: () => import('../views/settings-addStaff.vue')
+          },
+          {
+            path: 'add-class',
+            name: 'setting-add-class',
+            component: () => import('../views/settings-addClass.vue')
           }
         ]
       }

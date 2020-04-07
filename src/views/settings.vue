@@ -33,6 +33,10 @@ export default {
       {
         to: '/home/settings/add-staff',
         icon: 'mdi-account-plus'
+      },
+      {
+        to: '/home/settings/add-class',
+        icon: 'mdi-calendar-month-outline'
       }
     ]
   }),

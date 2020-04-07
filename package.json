@@ -1,6 +1,6 @@
 {
   "name": "leet",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": true,
   "scripts": {
     "build": "vue-cli-service electron:build",

@@ -144,7 +144,6 @@ export default {
   },
   methods: {
     login () {
-      this.$root.loader = true
       axios({
         method: 'post',
         url: this.$baseUrl + 'login',
@@ -168,7 +167,6 @@ export default {
               fname: response.data.usr_fname,
               lname: response.data.usr_lname
             })
-            this.$root.loader = false
             this.$router.push('/home')
           }).catch((e) => {
             console.log(e)
