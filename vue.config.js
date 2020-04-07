@@ -10,6 +10,8 @@ module.exports = {
         mac: {
           category: 'leet.category'
         },
+        // eslint-disable-next-line no-template-curly-in-string
+        artifactName: 'leet-setup.${ext}',
         protocols: {
           name: 'leet-protocol',
           schemes: [

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "vue-cli-service electron:build",
-    "build:install": "vue-cli-service electron:build && cd dist_electron && \"leet Setup 0.1.0.exe\"",
+    "build:install": "vue-cli-service electron:build && cd dist_electron && \"leet-setup.exe\"",
     "build:dist": "vue-cli-service build",
     "serve": "vue-cli-service electron:serve",
     "lint": "vue-cli-service lint",

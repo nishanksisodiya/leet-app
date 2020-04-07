@@ -22,7 +22,7 @@ import { app } from "electron"
         mdi-rotate-45
       </v-icon>
       <v-icon
-        class="title-btn mx-2"
+        class="title-btn ml-2"
         color="red accent-2"
         @click="close"
       >
