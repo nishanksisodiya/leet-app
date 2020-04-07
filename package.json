@@ -1,6 +1,6 @@
 {
   "name": "leet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "build": "vue-cli-service electron:build",
@@ -10,7 +10,9 @@
     "lint": "vue-cli-service lint",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "lazy-push": "git add . && git commit -m \"Lazy commit\" && git push -u origin master"
+    "patch-push": "npm version patch && git add . && git commit -m \"Patched somethings\" && git push -u origin master",
+    "minor-push": "npm version minor && git add . && git commit -m \"Minor bug fixes and QOL improvement\" && git push -u origin master",
+    "major-push": "npm version major && git add . && git commit -m \"Major release\" && git push -u origin master"
   },
   "main": "background.js",
   "dependencies": {
