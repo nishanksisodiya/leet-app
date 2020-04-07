@@ -34,6 +34,9 @@ import { app } from "electron"
         <router-view/>
       </v-container>
     </v-content>
+    <v-overlay v-model="loader">
+      <v-progress-circular indeterminate/>
+    </v-overlay>
   </v-app>
 </template>
 
@@ -46,6 +49,9 @@ export default {
   components: {
     logo
   },
+  data: () => ({
+    loader: false
+  }),
   methods: {
     min () {
       remote.getCurrentWindow().minimize()
@@ -69,6 +75,12 @@ export default {
     console.log('%cSTOP!', 'font-size: 50px; font-weight: bold; color: red')
     console.log('%cIf someone asked you to paste something here you are probably being scammed and your data might be stolen', 'font-size: 15px; font-weight: medium; color: blue')
     const auth = this.$cookies.get('refresh-token')
+    axios.interceptors.request.use(function (config) {
+      this.loader = true
+    })
+    axios.interceptors.response.use(function (response) {
+      this.loader = false
+    })
     if (auth) {
       axios({
         url: this.$baseUrl + 'refresh',
