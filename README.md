@@ -32,6 +32,31 @@ npm run build
 npm run build:dist
 ```
 
+### Build electron app and install
+```
+npm run build:intsall
+```
+
+### Add, Commit and Push changes to github with comment "minuet changes for developement"
+```
+npm run push
+```
+
+### Bump Version patch number, Add, Commit and Push changes to github with comment "Patched somethings"
+```
+npm run patch-push
+```
+
+### Bump Version minor number, Add, Commit and Push changes to github with comment "Minor bug fixes and QOL improvement"
+```
+npm run minor-push
+```
+
+### Bump Version major number, Add, Commit and Push changes to github with comment "Major release"
+```
+npm run major-push
+```
+
 ### Compiles and minifies for production and creates executable
 ```
 npm run serve

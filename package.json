@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
+    "push": "git add . && git commit -m \"minuet changes for developement\" && git push -u origin master",
     "patch-push": "npm version patch --no-git-tag-version && git add . && git commit -m \"Patched somethings\" && git push -u origin master",
     "minor-push": "npm version minor --no-git-tag-version && git add . && git commit -m \"Minor bug fixes and QOL improvement\" && git push -u origin master",
     "major-push": "npm version major --no-git-tag-version && git add . && git commit -m \"Major release\" && git push -u origin master"
