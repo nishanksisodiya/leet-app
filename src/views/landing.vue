@@ -46,6 +46,7 @@
 <script>
 import anime from 'animejs'
 import colors from 'vuetify/lib/util/colors'
+
 export default {
   name: 'landing',
 

@@ -29,7 +29,7 @@
     <v-footer fixed color="white">
       <v-row justify="end">
         <v-col cols="2">
-          <v-btn block color="success">
+          <v-btn @click="uploadTT" block color="success">
             submit
           </v-btn>
         </v-col>
@@ -48,7 +48,12 @@ export default {
       class_tt: null,
       class_cams: null
     }
-  })
+  }),
+  methods: {
+    uploadTT: () => {
+      const fd = this.$toFormData(this.class_)
+    }
+  }
 }
 </script>
 

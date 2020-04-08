@@ -22,6 +22,7 @@
 
 <script>
 import anime from 'animejs'
+
 export default {
   name: 'settings',
   data: () => ({

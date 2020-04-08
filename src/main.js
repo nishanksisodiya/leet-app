@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify'
 import ApexCharts from 'apexcharts'
 import '@/assets/css/home.css'
 import VueCookies from 'vue-cookies'
+import axios from 'axios'
 import session from 'vue-session'
 
 Vue.config.productionTip = false
@@ -15,6 +16,17 @@ Vue.prototype.$baseUrl = 'https://leet.azurewebsites.net/'
 
 Vue.use(VueCookies)
 Vue.use(session)
+
+Vue.prototype.$http = axios
+
+Vue.prototype.$toFormData = (data) => {
+  const fd = new FormData()
+  for (const key in data) {
+    fd.append(key, data[key])
+  }
+  return fd
+}
+
 // Disable for production
 document.onkeyup = function (e) {
   if (e.altKey && e.key === 'ArrowLeft') {

@@ -42,7 +42,6 @@ import { app } from "electron"
 
 <script>
 import logo from '@/components/logo'
-import axios from 'axios'
 const { remote } = require('electron')
 export default {
   name: 'App',
@@ -76,14 +75,14 @@ export default {
     console.log('%cIf someone asked you to paste something here you are probably being scammed and your data might be stolen', 'font-size: 15px; font-weight: medium; color: blue')
     const auth = this.$cookies.get('refresh-token')
 
-    axios.interceptors.request.use((config) => {
+    this.$http.interceptors.request.use((config) => {
       this.loader = true
       return config
     }, (error) => {
       return Promise.reject(error)
     })
 
-    axios.interceptors.response.use((response) => {
+    this.$http.interceptors.response.use((response) => {
       this.loader = false
       return response
     }, (error) => {
@@ -92,7 +91,7 @@ export default {
     })
 
     if (auth) {
-      axios({
+      this.$http({
         url: this.$baseUrl + 'refresh',
         method: 'post',
         headers: {
@@ -105,7 +104,7 @@ export default {
           accessToken: response.data.access_token,
           refreshToken: auth
         })
-        axios({
+        this.$http({
           method: 'post',
           url: this.$baseUrl + 'getUserInfo/name',
           headers: {

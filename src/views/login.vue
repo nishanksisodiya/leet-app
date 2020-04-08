@@ -22,45 +22,49 @@
           <v-row align="center">
             <v-col cols="6">
               <v-card dark elevation="0">
-                <v-card-title class="secondary--text">Register.</v-card-title>
-                <v-card-text>
-                  <v-row>
-                    <v-col cols="6">
-                      <v-text-field label="First Name" v-model="registerInfo.usr_fname"/>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field label="Last Name" v-model="registerInfo.usr_lname"/>
-                    </v-col>
-                  </v-row>
-                  <v-text-field label="Email" v-model="registerInfo.usr_eml" :filled="emlDisable" :readonly="emlDisable"/>
-                  <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
-                  <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
-                  <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
-                  <v-text-field label="Organization" v-model="registerInfo.usr_org" :filled="emlDisable" :readonly="emlDisable"/>
-                </v-card-text>
-                <v-card-actions>
-                  <v-row class="justify-center">
-                    <v-col cols="6">
-                      <v-btn block large class="black--text" @click="register" @keyup.enter="register" color="secondary">Register</v-btn>
-                    </v-col>
-                  </v-row>
-                </v-card-actions>
+                <v-form @submit="register">
+                  <v-card-title class="secondary--text">Register.</v-card-title>
+                  <v-card-text>
+                    <v-row>
+                      <v-col cols="6">
+                        <v-text-field label="First Name" v-model="registerInfo.usr_fname"/>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field label="Last Name" v-model="registerInfo.usr_lname"/>
+                      </v-col>
+                    </v-row>
+                    <v-text-field label="Email" v-model="registerInfo.usr_eml" :filled="emlDisable" :readonly="emlDisable"/>
+                    <v-text-field label="Password" v-model="registerInfo.usr_pwd" type="password"/>
+                    <v-text-field label="Confirm Password" v-model="cnfPwd" type="password"/>
+                    <v-text-field label="Phone Number" v-model="registerInfo.usr_phone"/>
+                    <v-text-field label="Organization" v-model="registerInfo.usr_org" :filled="emlDisable" :readonly="emlDisable"/>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-row class="justify-center">
+                      <v-col cols="6">
+                        <v-btn type="submit" block large class="black--text" color="secondary">Register</v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card-actions>
+                </v-form>
               </v-card>
             </v-col>
             <v-col cols="6">
               <v-card dark elevation="0">
-                <v-card-title class="secondary--text">LOGIN.</v-card-title>
-                <v-card-text>
-                  <v-text-field label="Email" v-model="loginInfo.usr_name"/>
-                  <v-text-field label="Password" v-model="loginInfo.usr_pwd" type="password"/>
-                </v-card-text>
-                <v-card-actions>
-                  <v-row class="justify-center">
-                    <v-col cols="6">
-                      <v-btn @click="login" @keyup.enter="login" block class="black--text" large color="secondary">Log in</v-btn>
-                    </v-col>
-                  </v-row>
-                </v-card-actions>
+                <v-form @submit="login">
+                  <v-card-title class="secondary--text">LOGIN.</v-card-title>
+                  <v-card-text>
+                    <v-text-field label="Email" v-model="loginInfo.usr_name"/>
+                    <v-text-field label="Password" v-model="loginInfo.usr_pwd" type="password"/>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-row class="justify-center">
+                      <v-col cols="6">
+                        <v-btn type="submit" block class="black--text" large color="secondary">Log in</v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card-actions>
+                </v-form>
               </v-card>
             </v-col>
           </v-row>
@@ -97,8 +101,8 @@
 
 <script>
 import colors from 'vuetify/lib/util/colors'
-import axios from 'axios'
 import anime from 'animejs'
+
 export default {
   name: 'login',
   data: () => ({
@@ -144,7 +148,7 @@ export default {
   },
   methods: {
     login () {
-      axios({
+      this.$http({
         method: 'post',
         url: this.$baseUrl + 'login',
         data: this.loginInfo
@@ -156,7 +160,7 @@ export default {
             refreshToken: response.data.refresh_token,
             accessToken: response.data.access_token
           })
-          axios({
+          this.$http({
             method: 'post',
             url: this.$baseUrl + 'getUserInfo/name',
             headers: {
@@ -177,7 +181,7 @@ export default {
       })
     },
     register () {
-      axios({
+      this.$http({
         method: 'post',
         url: this.$baseUrl + 'registerAdmin',
         data: this.registerInfo
@@ -190,7 +194,7 @@ export default {
         })
     },
     submitOtp () {
-      axios({
+      this.$http({
         method: 'post',
         url: this.$baseUrl + 'verify-email/' + this.registerInfo.usr_eml + '/' + this.otp
       }).then((response) => {
