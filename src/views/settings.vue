@@ -2,7 +2,7 @@
   <v-container fluid class="black--text fill-height align-center bg">
     <v-navigation-drawer mini-variant clipped app color="secondary" fixed class="elevation-1">
       <v-list nav color="transparent">
-        <v-btn class="my-2" small fab rounded color="primary" block to="/base">
+        <v-btn class="my-2" small fab rounded color="primary" block :to="this.$session.get('user-data').usr_admin ? '/base' : '/base/dept/' + this.$session.get('user-data').usr_dep">
           <v-icon color="black">
             mdi-home-export-outline mdi-flip-h
           </v-icon>
