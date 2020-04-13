@@ -18,14 +18,37 @@
         </v-toolbar-title>
       </v-toolbar>
       <v-content>
-        <facultyDash :data="selectedFac"></facultyDash>
+        <facultyDash :data="selectedFac"/>
       </v-content>
     </v-navigation-drawer>
+
+    <v-navigation-drawer
+      width="85%"
+      v-model="classDash"
+      temporary
+      app
+      right
+      dark
+      v-if="selectedClass !== null"
+    >
+      <v-toolbar color="transparent" elevation="0">
+        <v-btn dark text fab @click="classDash = false">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+        <v-toolbar-title>
+          {{ selectedClass.class_name }}
+        </v-toolbar-title>
+      </v-toolbar>
+      <v-content>
+        <classDash :data="selectedClass"/>
+      </v-content>
+    </v-navigation-drawer>
+
     <v-row v-if="isReady">
       <v-col cols="6">
         <v-row>
           <v-col lg="6" xl="4" v-for="(class_, i) in dashData.class_ana" :key="i">
-            <v-card :color="getColor(i)" @click="'#'">
+            <v-card :color="getColor(i)" @click="selectClass(class_)">
               <v-card-title>
                 {{ class_.class_name }}
               </v-card-title>
@@ -61,10 +84,12 @@
 
 <script>
 import facultyDash from '../components/facultyDash'
+import classDash from '../components/classDash'
 export default {
   name: 'home-dept',
   components: {
-    facultyDash
+    facultyDash,
+    classDash
   },
   data: () => ({
     dashData: null,
@@ -83,7 +108,9 @@ export default {
       }
     ],
     facultyDash: false,
+    classDash: false,
     selectedFac: null,
+    selectedClass: null,
     itemPerPage: 15,
     isReady: false
   }),
@@ -122,6 +149,10 @@ export default {
     openFacDash (item) {
       this.selectedFac = item
       this.facultyDash = true
+    },
+    selectClass (item) {
+      this.selectedClass = item
+      this.classDash = true
     }
   }
 }

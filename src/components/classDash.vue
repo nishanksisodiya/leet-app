@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'facultyDash',
+  name: 'classDash',
   props: {
     data: Object
   },
