@@ -5,7 +5,7 @@
         <v-text-field label="Class Name" v-model="class_.class_name"/>
       </v-col>
       <v-col cols="6">
-        <v-select label="Department" v-model="class_.class_dep"/>
+        <v-select label="Department" :items="deptList" v-model="class_.class_dep"/>
       </v-col>
     </v-row>
     <v-row>
@@ -49,6 +49,11 @@ export default {
       class_cams: null
     }
   }),
+  computed: {
+    deptList () {
+      return this.$session.get('user-data').usr_dep
+    }
+  },
   methods: {
     uploadTT: () => {
       const fd = this.$toFormData(this.class_)
