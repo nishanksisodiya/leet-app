@@ -52,6 +52,7 @@ export default {
   methods: {
     uploadTT: () => {
       const fd = this.$toFormData(this.class_)
+      console.log(fd)
     }
   }
 }

@@ -73,7 +73,6 @@ export default {
     }
     console.log('%cSTOP!', 'font-size: 50px; font-weight: bold; color: red')
     console.log('%cIf someone asked you to paste something here you are probably being scammed and your data might be stolen', 'font-size: 15px; font-weight: medium; color: blue')
-    const auth = this.$cookies.get('refresh-token')
 
     this.$http.interceptors.request.use((config) => {
       this.loader = true
@@ -86,10 +85,13 @@ export default {
       this.loader = false
       return response
     }, (error) => {
+      if (error.response.status === 401) {
+        this.$router.push('/login')
+      }
       this.loader = false
       return Promise.reject(error)
     })
-
+    const auth = this.$cookies.get('refresh-token')
     if (auth) {
       this.$http({
         url: this.$baseUrl + 'refresh',
@@ -98,7 +100,6 @@ export default {
           authorization: 'Bearer ' + auth
         }
       }).then((response) => {
-        console.log(response)
         this.$session.start()
         this.$session.set('auth-data', {
           accessToken: response.data.access_token,
@@ -111,11 +112,9 @@ export default {
             authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
           }
         }).then((response) => {
-          this.$session.set('user-data', {
-            fname: response.data.usr_fname,
-            lname: response.data.usr_lname
-          })
-          this.$router.push('/home')
+          this.$session.set('user-data', response.data)
+          const to = '/base' + (response.data.usr_admin ? '' : '/dept/' + response.data.usr_dep)
+          this.$router.push(to)
         }).catch((e) => {
           console.log(e)
         })

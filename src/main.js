@@ -2,11 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
-import ApexCharts from 'apexcharts'
+import ApexCharts from 'vue-apexcharts'
 import '@/assets/css/home.css'
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
 import session from 'vue-session'
+import vueMoments from 'vue-moment'
 
 Vue.config.productionTip = false
 Vue.prototype.$baseUrl = 'https://leet.azurewebsites.net/'
@@ -16,7 +17,10 @@ Vue.prototype.$baseUrl = 'https://leet.azurewebsites.net/'
 
 Vue.use(VueCookies)
 Vue.use(session)
+Vue.use(ApexCharts)
+Vue.use(vueMoments)
 
+Vue.component('apexchart', ApexCharts)
 Vue.prototype.$http = axios
 
 Vue.prototype.$toFormData = (data) => {
@@ -36,9 +40,26 @@ document.onkeyup = function (e) {
   }
 }
 
+setInterval(() => {
+  this.$http({
+    method: 'post',
+    url: this.$baseUrl + 'refresh',
+    headers: {
+      authorization: 'Bearer ' + this.$session.get('auth-data').refreshToken
+    }
+  })
+    .then(res => {
+      if (res.status === 201) {
+        this.$session.set('auth-data', {
+          refreshToken: this.$session.get('auth-data').refreshToken,
+          accessToken: res.data.access_token
+        })
+      }
+    })
+}, 15 * 60000)
+
 new Vue({
   router,
   vuetify,
-  ApexCharts,
   render: h => h(App)
 }).$mount('#app')

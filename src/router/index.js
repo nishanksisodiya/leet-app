@@ -15,13 +15,26 @@ const routes = [
     component: () => import('../views/login.vue')
   },
   {
-    path: '/home',
-    component: () => import('../views/home.vue'),
+    path: '/base',
+    component: () => import('../views/basePage.vue'),
     children: [
       {
         path: '',
         name: 'home',
-        component: () => import('../views/home-index.vue')
+        redirect: 'index',
+        component: () => import('../views/home.vue'),
+        children: [
+          {
+            path: 'index',
+            name: 'home-index',
+            component: () => import('../views/home-index.vue')
+          },
+          {
+            path: 'dept/:deptName',
+            name: 'dept',
+            component: () => import('../views/home-dept.vue')
+          }
+        ]
       },
       {
         path: 'settings',
@@ -50,7 +63,6 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: process.env.IS_ELECTRON ? 'hash' : 'history',
   routes
 })
 

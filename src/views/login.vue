@@ -74,20 +74,22 @@
 
     <v-dialog width="25%" overlay-color="secondary" overlay-opacity="1" persistent dark v-model="otpModal">
       <v-card>
-        <v-card-title class="secondary--text">
-          Enter OTP.
-        </v-card-title>
-        <v-card-subtitle>An OTP has been sent to your e-mail.</v-card-subtitle>
-        <v-card-text>
-          <v-text-field v-model="otp" outlined label="OTP"/>
-        </v-card-text>
-        <v-card-actions>
-          <v-row justify="center">
-            <v-col cols="6">
-              <v-btn block color="primary" @keyup.enter="submitOtp" @click="submitOtp">Submit</v-btn>
-            </v-col>
-          </v-row>
-        </v-card-actions>
+        <v-form @submit="submitOtp">
+          <v-card-title class="secondary--text">
+            Enter OTP.
+          </v-card-title>
+          <v-card-subtitle>An OTP has been sent to your e-mail.</v-card-subtitle>
+          <v-card-text>
+            <v-text-field v-model="otp" outlined label="OTP"/>
+          </v-card-text>
+          <v-card-actions>
+            <v-row justify="center">
+              <v-col cols="6">
+                <v-btn type="submit" block color="primary">Submit</v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+        </v-form>
       </v-card>
       <v-snackbar :timeout="5000" v-model="wrongOtp">
         Wrong OTP try again.
@@ -167,11 +169,10 @@ export default {
               authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
             }
           }).then((response) => {
-            this.$session.set('user-data', {
-              fname: response.data.usr_fname,
-              lname: response.data.usr_lname
-            })
-            this.$router.push('/home')
+            console.log(response.data)
+            this.$session.set('user-data', response.data)
+            const to = '/base' + (response.data.usr_admin ? '' : '/dept/' + response.data.usr_dep)
+            this.$router.push(to)
           }).catch((e) => {
             console.log(e)
           })

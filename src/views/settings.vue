@@ -2,7 +2,7 @@
   <v-container fluid class="black--text fill-height align-center bg">
     <v-navigation-drawer mini-variant clipped app color="secondary" fixed class="elevation-1">
       <v-list nav color="transparent">
-        <v-btn class="my-2" small fab rounded color="primary" block to="/home">
+        <v-btn class="my-2" small fab rounded color="primary" block to="/base">
           <v-icon color="black">
             mdi-home-export-outline mdi-flip-h
           </v-icon>
@@ -13,6 +13,15 @@
           </v-icon>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <v-list nav color="transparent">
+          <v-btn dark class="my-2" @click="logout" small fab rounded color="error" block>
+            <v-icon>
+              mdi-logout-variant
+            </v-icon>
+          </v-btn>
+        </v-list>
+      </template>
     </v-navigation-drawer>
     <v-content class="fill-height">
       <router-view/>
@@ -28,19 +37,31 @@ export default {
   data: () => ({
     routerLinks: [
       {
-        to: '/home/settings/index',
+        to: '/base/settings/index',
         icon: 'mdi-account-circle'
       },
       {
-        to: '/home/settings/add-staff',
+        to: '/base/settings/add-staff',
         icon: 'mdi-account-plus'
       },
       {
-        to: '/home/settings/add-class',
+        to: '/base/settings/add-class',
         icon: 'mdi-calendar-month-outline'
       }
     ]
   }),
+  created () {
+    this.$http({
+      method: 'POST',
+      url: this.$baseUrl + 'getUserInfo/all',
+      headers: {
+        authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
+      }
+    })
+      .then((response) => {
+        this.$session.set('user-info-all', response.data)
+      })
+  },
   mounted () {
     anime({
       targets: '.bg',
@@ -52,7 +73,15 @@ export default {
       this.$vuetify.theme.dark = false
     })
   },
+  methods: {
+    logout () {
+      this.$session.clear()
+      this.$cookies.remove('refresh-token')
+      this.$router.push('/login')
+    }
+  },
   destroyed () {
+    this.$session.remove('user-info-all')
     this.$vuetify.theme.dark = true
   }
 }
