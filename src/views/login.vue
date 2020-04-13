@@ -199,6 +199,7 @@ export default {
         method: 'post',
         url: this.$baseUrl + 'verify-email/' + this.registerInfo.usr_eml + '/' + this.otp
       }).then((response) => {
+        console.log(response.data)
         if (response.data === 'True') {
           this.$router.go()
         } else {
