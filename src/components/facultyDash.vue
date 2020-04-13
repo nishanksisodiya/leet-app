@@ -12,13 +12,14 @@ export default {
   },
   data: () => ({
     chartData: {
-      series: [44, 55, 13, 43, 22],
+      series: [44, 26, 20],
       chartOptions: {
         chart: {
           width: 380,
-          type: 'pie'
+          type: 'pie',
+          foreColor: 'white'
         },
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+        labels: ['Happy', 'Neutral', 'Unhappy'],
         responsive: [{
           breakpoint: 480,
           options: {

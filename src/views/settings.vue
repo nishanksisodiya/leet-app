@@ -50,18 +50,6 @@ export default {
       }
     ]
   }),
-  created () {
-    this.$http({
-      method: 'POST',
-      url: this.$baseUrl + 'getUserInfo/all',
-      headers: {
-        authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
-      }
-    })
-      .then((response) => {
-        this.$session.set('user-info-all', response.data)
-      })
-  },
   mounted () {
     anime({
       targets: '.bg',
@@ -71,6 +59,16 @@ export default {
       loop: false
     }).finished.then(() => {
       this.$vuetify.theme.dark = false
+      this.$http({
+        method: 'POST',
+        url: this.$baseUrl + 'getUserInfo/all',
+        headers: {
+          authorization: 'Bearer ' + this.$session.get('auth-data').accessToken
+        }
+      })
+        .then((response) => {
+          this.$session.set('user-info-all', response.data)
+        })
     })
   },
   methods: {

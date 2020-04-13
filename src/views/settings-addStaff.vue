@@ -6,14 +6,7 @@
           outlined
           label="Type"
           v-model="type"
-          :items="[{
-            text: 'Department Head',
-            value: true
-          },
-          {
-            text: 'Faculty',
-            value: false
-          }]"
+          :items="typeSelect"
         />
       </v-col>
       <v-spacer></v-spacer>
@@ -69,10 +62,10 @@
         </v-col>
       </v-row>
     </v-footer>
-    <v-snackbar v-model="success" timeout="2000">
+    <v-snackbar v-model="successSnack" :timeout="2000">
       Uploaded Successfully
     </v-snackbar>
-    <v-snackbar v-model="Error" timeout="2000">
+    <v-snackbar v-model="errorSnack" :timeout="2000">
       Oops! Something went wrong try again
     </v-snackbar>
   </v-container>
@@ -83,7 +76,6 @@ export default {
   name: 'settings-add-staff',
   data: () => ({
     type: null,
-    deptList: null,
     hod: [
       {
         hod_eml: null,
@@ -97,9 +89,29 @@ export default {
         fac_dep: null
       }
     ],
-    success: false,
-    error: false
+    successSnack: false,
+    errorSnack: false
   }),
+  computed: {
+    typeSelect () {
+      return this.$session.get('user-data').usr_admin ? [{
+        text: 'Department Head',
+        value: true
+      },
+      {
+        text: 'Faculty',
+        value: false
+      }] : [
+        {
+          text: 'Faculty',
+          value: false
+        }
+      ]
+    },
+    deptList () {
+      return this.$session.get('user-data').usr_dep
+    }
+  },
   methods: {
     addMember () {
       if (this.type) {
@@ -138,10 +150,10 @@ export default {
       })
         .then(() => {
           this.$refs.form.reset()
-          this.success = true
+          this.successSnack = true
         })
         .catch(() => {
-          this.error = true
+          this.errorSnack = true
         })
     }
   }

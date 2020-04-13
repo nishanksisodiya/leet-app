@@ -6,6 +6,7 @@
       temporary
       app
       right
+      dark
       v-if="selectedFac !== null"
     >
       <v-toolbar color="transparent" elevation="0">

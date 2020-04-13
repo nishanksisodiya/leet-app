@@ -26,12 +26,12 @@ const routes = [
         children: [
           {
             path: 'index',
-            name: 'home-index',
+            name: 'Dashboard',
             component: () => import('../views/home-index.vue')
           },
           {
             path: 'dept/:deptName',
-            name: 'dept',
+            name: 'Department Dashboard',
             component: () => import('../views/home-dept.vue')
           }
         ]
@@ -43,17 +43,17 @@ const routes = [
         children: [
           {
             path: 'index',
-            name: 'settings-index',
+            name: 'Account Settings',
             component: () => import('../views/settings-index.vue')
           },
           {
             path: 'add-staff',
-            name: 'settings-add-staff',
+            name: 'Add Staff',
             component: () => import('../views/settings-addStaff.vue')
           },
           {
             path: 'add-class',
-            name: 'setting-add-class',
+            name: 'Add Class',
             component: () => import('../views/settings-addClass.vue')
           }
         ]
